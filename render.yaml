@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: closealead-backend
+    env: docker
+    plan: free
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+    healthCheckPath: /
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:///./closealead.db
+      - key: SECRET_KEY
+        generateValue: true
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: JWT_EXPIRATION
+        value: "86400"
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: CORS_ORIGINS
+        value: https://your-netlify-site.netlify.app, http://localhost:3000
+    # Optional: if you prefer buildpacks instead of Docker, remove the docker fields
+    # and use the following instead:
+    # buildCommand: pip install -r requirements.txt
+    # startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
