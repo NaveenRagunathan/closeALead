@@ -20,13 +20,15 @@ const plans = {
   },
   professional: {
     name: 'Professional',
-    monthlyPrice: 29,
-    annualPrice: 26,
+    monthlyPrice: 12,
+    annualPrice: 8.75,
+    annualTotal: 105,
     features: [
       '4 simultaneous offers',
       '15 edits per offer',
       'Priority AI processing',
       'Custom branding',
+      'Client personalization',
       'Priority support',
       'Advanced templates',
       'Analytics dashboard'
@@ -34,20 +36,22 @@ const plans = {
     cta: 'Go Professional',
     popular: true
   },
-  enterprise: {
-    name: 'Enterprise',
-    monthlyPrice: 99,
-    annualPrice: 89,
+  agency: {
+    name: 'Agency',
+    monthlyPrice: 35,
+    annualPrice: 24.58,
+    annualTotal: 295,
     features: [
       'Unlimited offers',
       'Unlimited edits',
       'White-label options',
       'API access',
+      'Team collaboration',
       'Dedicated success manager',
       'Custom integrations',
       'SLA guarantee'
     ],
-    cta: 'Scale Unlimited',
+    cta: 'Scale Your Agency',
     popular: false
   }
 }
@@ -133,7 +137,7 @@ export default function Pricing({ onSelectPlan }) {
                 </div>
                 {billingInterval === 'annual' && plan.annualPrice > 0 && (
                   <p className="text-sm text-gray-500 mt-2">
-                    Billed annually (${plan.annualPrice * 12}/year)
+                    Billed annually (${plan.annualTotal}/year)
                   </p>
                 )}
               </div>

@@ -2,6 +2,7 @@
 from crewai import Agent
 from langchain_openai import ChatOpenAI
 from core.config import settings
+from .offer_templates import OFFER_TEMPLATES, select_template_for_offer
 
 # Initialize LLMs with different configurations
 standard_llm = ChatOpenAI(

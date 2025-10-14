@@ -59,7 +59,7 @@ async def signup(request: SignupRequest, db: Session = Depends(get_db)):
         name=request.name,
         email=request.email,
         password_hash=get_password_hash(request.password),
-        plan=PlanType(request.plan) if request.plan in ["free", "professional", "enterprise"] else PlanType.FREE
+        plan=PlanType(request.plan) if request.plan in ["free", "professional", "agency"] else PlanType.FREE
     )
     
     db.add(user)

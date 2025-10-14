@@ -57,6 +57,22 @@ export default function CustomizationPanel({ data, onChange }) {
           <div className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
+                Client Name <span className="text-gray-500">(Optional - Personalize)</span>
+              </label>
+              <input
+                type="text"
+                value={data.clientName || ''}
+                onChange={(e) => onChange('clientName', e.target.value.slice(0, 100))}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                placeholder="e.g., John Smith or Acme Corp"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Add your client's name to personalize the offer for them
+              </p>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
                 Title <span className="text-gray-500">({data.title.length}/60)</span>
               </label>
               <input

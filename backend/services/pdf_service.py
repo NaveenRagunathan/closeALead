@@ -28,7 +28,12 @@ def generate_html(offer: Offer) -> str:
         for feature in (offer.features or [])
     ])
     
-    # For now, all templates share the same base layout; customize styles later
+    # Add personalization if client name is provided
+    personalization_html = ""
+    if offer.client_name:
+        personalization_html = f'<div class="personalization">Prepared for: <strong>{offer.client_name}</strong></div>'
+    
+    # Customize styles based on template
     if offer.template in {"modern", "bold", "elegant", "vibrant"}:
         return f"""
         <!DOCTYPE html>
@@ -41,6 +46,7 @@ def generate_html(offer: Offer) -> str:
                 .header {{ background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; padding: 60px 40px; }}
                 .header h1 {{ font-size: 48px; margin: 0 0 20px 0; }}
                 .header p {{ font-size: 20px; opacity: 0.9; }}
+                .personalization {{ background: #f0f9ff; padding: 15px 40px; font-size: 14px; color: #1e40af; border-left: 4px solid #3b82f6; }}
                 .content {{ padding: 40px; }}
                 .description {{ font-size: 16px; line-height: 1.8; color: #374151; margin-bottom: 40px; }}
                 .features {{ background: #f9fafb; padding: 40px; }}
@@ -58,6 +64,7 @@ def generate_html(offer: Offer) -> str:
                 <h1>{offer.title}</h1>
                 <p>{offer.subtitle}</p>
             </div>
+            {personalization_html}
             <div class="content">
                 <div class="description">{offer.description}</div>
             </div>
@@ -89,6 +96,7 @@ def generate_html(offer: Offer) -> str:
             .header {{ background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; padding: 60px 40px; }}
             .header h1 {{ font-size: 48px; margin: 0 0 20px 0; }}
             .header p {{ font-size: 20px; opacity: 0.9; }}
+            .personalization {{ background: #f0f9ff; padding: 15px 40px; font-size: 14px; color: #1e40af; border-left: 4px solid #3b82f6; }}
             .content {{ padding: 40px; }}
             .description {{ font-size: 16px; line-height: 1.8; color: #374151; margin-bottom: 40px; }}
             .features {{ background: #f9fafb; padding: 40px; }}
@@ -106,6 +114,7 @@ def generate_html(offer: Offer) -> str:
             <h1>{offer.title}</h1>
             <p>{offer.subtitle}</p>
         </div>
+        {personalization_html}
         <div class="content">
             <div class="description">{offer.description}</div>
         </div>

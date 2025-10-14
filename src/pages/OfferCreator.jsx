@@ -19,6 +19,7 @@ export default function OfferCreator() {
     title: '',
     subtitle: '',
     description: '',
+    clientName: '',
     price: { amount: 0, currency: 'USD', interval: 'one-time' },
     features: [],
     template: 'modern',

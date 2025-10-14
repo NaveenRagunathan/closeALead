@@ -8,7 +8,7 @@ from core.database import Base
 class PlanType(str, enum.Enum):
     FREE = "free"
     PROFESSIONAL = "professional"
-    ENTERPRISE = "enterprise"
+    AGENCY = "agency"
 
 class User(Base):
     __tablename__ = "users"

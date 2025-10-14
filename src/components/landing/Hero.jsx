@@ -73,8 +73,8 @@ export default function Hero({ onGetStarted }) {
               <div className="flex items-center justify-center mb-2">
                 <DollarSign className="w-8 h-8 text-green-600" />
               </div>
-              <div className="text-4xl font-bold text-gray-900 mb-1">$2.4M+</div>
-              <div className="text-gray-600">In Deals Closed</div>
+              <div className="text-4xl font-bold text-gray-900 mb-1">$1,700</div>
+              <div className="text-gray-600">Avg Deal Value</div>
             </div>
           </motion.div>
         </div>

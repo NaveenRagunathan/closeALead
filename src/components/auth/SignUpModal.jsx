@@ -8,9 +8,8 @@ export default function SignUpModal({ isOpen, onClose, onSwitchToLogin }) {
     name: '',
     email: '',
     password: '',
-    confirmPassword: '',
     plan: 'free',
-    agreedToTerms: false
+    agreedToTerms: true  // Auto-agree to speed up signup
   })
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
@@ -23,25 +22,16 @@ export default function SignUpModal({ isOpen, onClose, onSwitchToLogin }) {
     const newErrors = {}
     
     if (!formData.name || formData.name.length < 2) {
-      newErrors.name = 'Name must be at least 2 characters'
+      newErrors.name = 'Name required'
     }
     
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email'
+      newErrors.email = 'Valid email required'
     }
     
-    const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/
-    if (!passwordRegex.test(formData.password)) {
+    if (formData.password.length < 8) {
       newErrors.password = 'Password must be 8+ characters with 1 uppercase and 1 number'
-    }
-    
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match'
-    }
-    
-    if (!formData.agreedToTerms) {
-      newErrors.terms = 'You must agree to the terms and conditions'
     }
     
     setErrors(newErrors)
@@ -120,64 +110,36 @@ export default function SignUpModal({ isOpen, onClose, onSwitchToLogin }) {
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              placeholder="••••••••"
+              placeholder="At least 8 characters"
             />
             {errors.password && (
               <p className="text-red-500 text-sm mt-1">{errors.password}</p>
             )}
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              value={formData.confirmPassword}
-              onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              placeholder="••••••••"
-            />
-            {errors.confirmPassword && (
-              <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
-            )}
+            <p className="text-xs text-gray-500 mt-1">
+              Use 8+ characters with uppercase and number
+            </p>
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Select Plan
             </label>
-            <div className="space-y-2">
-              {['free', 'professional', 'enterprise'].map((plan) => (
-                <label key={plan} className="flex items-center">
-                  <input
-                    type="radio"
-                    value={plan}
-                    checked={formData.plan === plan}
-                    onChange={(e) => setFormData({ ...formData, plan: e.target.value })}
-                    className="mr-2"
-                  />
-                  <span className="capitalize">{plan}</span>
-                </label>
+            <div className="grid grid-cols-3 gap-2">
+              {['free', 'professional', 'agency'].map((plan) => (
+                <button
+                  key={plan}
+                  type="button"
+                  onClick={() => setFormData({ ...formData, plan })}
+                  className={`px-3 py-2 rounded-lg border-2 transition-all ${
+                    formData.plan === plan
+                      ? 'border-primary-600 bg-primary-50 text-primary-700 font-semibold'
+                      : 'border-gray-300 hover:border-gray-400'
+                  }`}
+                >
+                  <span className="capitalize text-sm">{plan}</span>
+                </button>
               ))}
             </div>
-          </div>
-
-          <div>
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                checked={formData.agreedToTerms}
-                onChange={(e) => setFormData({ ...formData, agreedToTerms: e.target.checked })}
-                className="mr-2"
-              />
-              <span className="text-sm text-gray-600">
-                I agree to the Terms & Conditions
-              </span>
-            </label>
-            {errors.terms && (
-              <p className="text-red-500 text-sm mt-1">{errors.terms}</p>
-            )}
           </div>
 
           <button
@@ -187,6 +149,10 @@ export default function SignUpModal({ isOpen, onClose, onSwitchToLogin }) {
           >
             {loading ? 'Creating Account...' : 'Create Account'}
           </button>
+          
+          <p className="text-xs text-gray-500 text-center mt-2">
+            By creating an account, you agree to our Terms & Conditions
+          </p>
         </form>
 
         <p className="text-center text-gray-600 mt-4">

@@ -13,7 +13,7 @@ router = APIRouter()
 PLAN_LIMITS = {
     PlanType.FREE: {"offers": 1, "edits": 5},
     PlanType.PROFESSIONAL: {"offers": 4, "edits": 15},
-    PlanType.ENTERPRISE: {"offers": float('inf'), "edits": float('inf')}
+    PlanType.AGENCY: {"offers": float('inf'), "edits": float('inf')}
 }
 
 class PriceData(BaseModel):
@@ -25,6 +25,7 @@ class OfferCreate(BaseModel):
     title: str
     subtitle: str = ""
     description: str = ""
+    clientName: str = ""
     price: PriceData
     features: List[str] = []
     template: str = "modern"
@@ -36,6 +37,7 @@ class OfferUpdate(BaseModel):
     title: str = None
     subtitle: str = None
     description: str = None
+    clientName: str = None
     price: PriceData = None
     features: List[str] = None
     template: str = None
@@ -89,6 +91,7 @@ async def create_offer(
         title=offer_data.title,
         subtitle=offer_data.subtitle,
         description=offer_data.description,
+        client_name=offer_data.clientName,
         price_amount=offer_data.price.amount,
         price_currency=offer_data.price.currency,
         price_interval=offer_data.price.interval,
@@ -139,6 +142,8 @@ async def update_offer(
             offer.brand_colors = value
         elif field == "logoUrl":
             offer.logo_url = value
+        elif field == "clientName":
+            offer.client_name = value
         else:
             setattr(offer, field, value)
     

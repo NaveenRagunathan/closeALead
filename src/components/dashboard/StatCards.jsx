@@ -3,7 +3,7 @@ import { FileText, Crown, Edit } from 'lucide-react'
 const PLAN_LIMITS = {
   free: { offers: 1, editsPerOffer: 5 },
   professional: { offers: 4, editsPerOffer: 15 },
-  enterprise: { offers: Infinity, editsPerOffer: Infinity }
+  agency: { offers: Infinity, editsPerOffer: Infinity }
 }
 
 export default function StatCards({ user, offers }) {
@@ -23,7 +23,7 @@ export default function StatCards({ user, offers }) {
         return 'bg-gray-100 text-gray-800'
       case 'professional':
         return 'bg-blue-100 text-blue-800'
-      case 'enterprise':
+      case 'agency':
         return 'bg-purple-100 text-purple-800'
       default:
         return 'bg-gray-100 text-gray-800'
@@ -71,7 +71,7 @@ export default function StatCards({ user, offers }) {
           </span>
         </div>
         <p className="text-gray-600 mb-3">Current Plan</p>
-        {user?.plan !== 'enterprise' && (
+        {user?.plan !== 'agency' && (
           <button className="text-primary-600 hover:text-primary-700 font-medium text-sm">
             Upgrade Plan →
           </button>

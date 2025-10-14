@@ -14,6 +14,7 @@ class Offer(Base):
     title = Column(String(200), nullable=False)
     subtitle = Column(String(300))
     description = Column(String)
+    client_name = Column(String(200))  # For personalization
     
     # Pricing
     price_amount = Column(Float, default=0.0)
@@ -45,6 +46,7 @@ class Offer(Base):
             "title": self.title,
             "subtitle": self.subtitle,
             "description": self.description,
+            "clientName": self.client_name,
             "price": {
                 "amount": self.price_amount,
                 "currency": self.price_currency,
