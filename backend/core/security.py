@@ -8,7 +8,12 @@ from core.config import settings
 from core.database import get_db
 from models.user import User
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+# Configure bcrypt with optimized rounds for faster authentication
+pwd_context = CryptContext(
+    schemes=["bcrypt"],
+    deprecated="auto",
+    bcrypt__rounds=settings.BCRYPT_ROUNDS
+)
 security = HTTPBearer()
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:

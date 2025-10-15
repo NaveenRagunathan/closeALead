@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     SECRET_KEY: str = "your-secret-key-change-in-production"
     JWT_ALGORITHM: str = "HS256"
     JWT_EXPIRATION: int = 86400  # 24 hours
+    BCRYPT_ROUNDS: int = 10  # Default 12 is slow; 10 provides good security with 4x speed
     
     # OpenAI
     OPENAI_API_KEY: str = ""
